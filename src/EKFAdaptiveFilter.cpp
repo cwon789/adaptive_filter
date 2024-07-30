@@ -549,7 +549,7 @@ public:
         // header
         double timediff = this->get_clock()->now().seconds() - timeL + imuTimeCurrent;
         headerI = imuIn->header;
-        headerI.stamp = rclcpp::Time(timediff);
+        headerI.stamp = rclcpp::Time(static_cast<int64_t>(timediff * 1e9));
 
         imuNew = true;
     }
@@ -581,7 +581,8 @@ public:
         // header
         double timediff = this->get_clock()->now().seconds() - timeL + wheelTimeCurrent;
         headerW = wheelOdometry->header;
-        headerW.stamp = rclcpp::Time(timediff);
+        headerW.stamp = rclcpp::Time(static_cast<int64_t>(timediff * 1e9));
+
 
         // new measure
         wheelNew = true;
@@ -620,7 +621,8 @@ public:
         // header
         double timediff = this->get_clock()->now().seconds() - timeL + lidarTimeCurrent;
         headerL = laserOdometry->header;
-        headerL.stamp = rclcpp::Time(timediff);
+        headerL.stamp = rclcpp::Time(static_cast<int64_t>(timediff * 1e9));
+
         
         //New measure
         lidarNew = true;
